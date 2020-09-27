@@ -48,10 +48,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun parseExtensionExamples(): Unit {
+        //1
         val kotlinExtention = "Kotlin Extensions ObjectSerializer"
         val serializedString = kotlinExtention.serialize()
         println(serializedString)
         println(serializedString.deserialize() as String)
+
+        //2
+        val json = "{\"key\": \"value\"}".jsonObject  // {"key": "value"}
+        val firstName = json?.getStringOrNull("first_name")
+        val lastName = json?.getStringOrNull("last_name")
+        println("firstName is $firstName")
+        println("lastName is $lastName")
     }
 
     private fun priceExtensionExamples(): Unit {
