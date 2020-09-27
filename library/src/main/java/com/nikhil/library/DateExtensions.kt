@@ -33,3 +33,20 @@ fun String.getDateUnixTime(): Long {
     }
     throw ParseException("Please Enter a valid date", 0)
 }
+
+/**
+ * Very often we get the date and time as a timestamp.
+ * A timestamp is the number of seconds (sometimes milliseconds) since January 1, 1970.
+ * This moment is called the epoch.
+ */
+
+/**
+ * function to convert seconds into a [Date] object
+ */
+fun Int.toDate(): Date = Date(this.toLong() * 1000L)
+
+/**
+ * read-only property to convert seconds into a [Date] object
+ */
+val Int.asDate: Date
+    get() = Date(this.toLong() * 1000L)
