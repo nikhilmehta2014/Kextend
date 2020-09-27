@@ -2,9 +2,17 @@ package com.nikhil.kextend
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.nikhil.library.*
+import org.json.JSONObject
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+    private val TAG = "MainActivity"
+    private val context = this
+
+    @ExperimentalStdlibApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -16,18 +24,44 @@ class MainActivity : AppCompatActivity() {
         parseExtensionExamples()
         priceExtensionExamples()
         stringExtensionExamples()
+        anyExtensionExamples()
+        uriExtensionExamples()
     }
 
     private fun contextExtensionExamples() {
-        //TODO: add examples
+        //1
+        val vn = versionName ?: "Unknown"
+        val vc = versionCode?.toString() ?: "Unknown"
+        val appVersion = "App Version: $vn ($vc)"
+
+        //2
+        Log.d(TAG, "User's screen size: ${screenSize.x}x${screenSize.y}")
+
+        //3
+        vibrate(500) // 500 ms      // Should be called from Activity or other Context
+        context.vibrate(500) // 500 ms      // Can be called from any place having "context" variable
     }
 
     private fun dateExtensionExamples() {
+        //1
         val currentTime = System.currentTimeMillis()
         println(currentTime)
         println(currentTime.getTimeStamp())
         println(currentTime.getYearMonthDay())
         println("2020-09-20".getDateUnixTime())
+
+        //2
+        val json = JSONObject();
+        json.put("date", 1598435781)
+        val date = json.getIntOrNull("date")?.asDate
+        println("date is $date")
+
+        //3
+        val format = "yyyy-MM-dd HH:mm:ss"
+        val dateObject = Date()
+        val str = dateObject.toString(format)
+        val date2 = str.toDate(format)
+        println("date2 is $date2")
     }
 
     private fun genericExtensionExamples(): Unit {
@@ -63,10 +97,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun priceExtensionExamples(): Unit {
+        //1
         println("11.0".toPriceAmount())
         println("11".toPriceAmount())
         println("05".toPriceAmount())
         println(11.0.toPriceAmount())
+
+        //2
+        val amount = 4999
+        val doubleAmount = amount.centsToDollars()
+        val priceTag = amount.centsToDollarsFormat("\$")
+
+        //3
+        val price = 123456789.5.toPrice()
     }
 
     private fun stringExtensionExamples() {
@@ -142,5 +185,31 @@ class MainActivity : AppCompatActivity() {
         //10
         val ccFormatted = "1234567890123456".creditCardFormatted // "1234 5678 9012 3456"
         println("ccFormatted is $ccFormatted")
+
+        //11
+        val apiLoc = "41.6168, 41.6367".toLocation("API")
+        println("location is $apiLoc")
+
+        //12
+        val digitsOnly = "12345".containsDigit
+        val notDigitsOnly = "abc12345".containsDigit
+        val alphaNumeric = "abc123".isAlphanumeric
+        val notAlphanumeric = "ab.2a#1".isAlphanumeric
+
+        //13
+        val uri = "invalid_uri".asUri
+        val uri2 = "https://medium.com/@alex_nekrasov".asUri
+    }
+
+    @ExperimentalStdlibApi
+    private fun anyExtensionExamples() {
+        //1
+        Log.d(TAG, "User's device: $deviceName")
+    }
+
+    private fun uriExtensionExamples() {
+        //1
+        val uri2 = "https://medium.com/@alex_nekrasov".asUri
+        uri2?.open(this)
     }
 }
