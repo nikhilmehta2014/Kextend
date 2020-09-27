@@ -34,6 +34,9 @@ dependencies {
     //Kextend
     implementation 'com.github.nikhilmehta2014:Kextend:v1.0.0'
 
+    // FinestWebView
+    implementation 'com.thefinestartist:finestwebview:1.2.7'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

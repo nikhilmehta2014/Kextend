@@ -5,6 +5,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.location.Location
+import android.net.Uri
+import android.webkit.URLUtil
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 import org.json.JSONArray
 import org.json.JSONException
@@ -247,3 +250,44 @@ val String.creditCardFormatted: String
         }
         return result.toString()
     }
+
+/**
+ * When you work with an API and get the coordinates of an object, you may get them as two different fields.
+ * But sometimes it’s one field with a comma-separated latitude and longitude.
+ *
+ * Similarly, you can create an extension converting String to [LatLng] from the Google Maps package.
+ * In this case, you won’t even need to specify the location provider.
+ */
+fun String.toLocation(provider: String): Location? {
+    val components = this.split(",")
+    if (components.size != 2)
+        return null
+
+    val lat = components[0].toDoubleOrNull() ?: return null
+    val lng = components[1].toDoubleOrNull() ?: return null
+    val location = Location(provider);
+    location.latitude = lat
+    location.longitude = lng
+    return location
+}
+
+/**
+ * We usually think about an internet address as a string.
+ * We can type it and put it into quotes.
+ * For example, “https://medium.com.”
+ *
+ * But for internal use, Android has a special type: [Uri].
+ * It’s easy to convert one into the other.
+ * The extension below allows us to convert a String into an [Uri] with verification.
+ * If it’s not a valid [Uri], it returns null
+ */
+val String.asUri: Uri?
+    get() = try {
+        if (URLUtil.isValidUrl(this))
+            Uri.parse(this)
+        else
+            null
+    } catch (e: Exception) {
+        null
+    }
+

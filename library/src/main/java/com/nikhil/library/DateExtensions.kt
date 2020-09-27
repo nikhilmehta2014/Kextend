@@ -50,3 +50,28 @@ fun Int.toDate(): Date = Date(this.toLong() * 1000L)
  */
 val Int.asDate: Date
     get() = Date(this.toLong() * 1000L)
+
+/**
+ * Convert [String] to [Date] object.
+ *
+ * Performance warning:
+ * In this example, we create [SimpleDateFormat] object every time.
+ * If you use this extension inside a list or parse a big response from an API,
+ * consider removing the `val dateFormatter = SimpleDateFormat(format, Locale.US)` from the extension code and putting it in as a global variable or a static class member.
+ */
+fun String.toDate(format: String): Date? {
+    val dateFormatter = SimpleDateFormat(format, Locale.US)
+    return try {
+        dateFormatter.parse(this)
+    } catch (e: ParseException) {
+        null
+    }
+}
+
+/**
+ * Convert [Date] object to [String] format.
+ */
+fun Date.toString(format: String): String {
+    val dateFormatter = SimpleDateFormat(format, Locale.US)
+    return dateFormatter.format(this)
+}
