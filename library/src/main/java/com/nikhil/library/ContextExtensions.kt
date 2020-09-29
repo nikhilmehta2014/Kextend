@@ -14,6 +14,7 @@ import android.os.Vibrator
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import java.util.*
 
@@ -111,4 +112,11 @@ fun Context.vibrate(duration: Long) {
         @Suppress("DEPRECATION")
         vib.vibrate(duration)
     }
+}
+
+/**
+ * Show [Toast] with default duration of [Toast.LENGTH_SHORT]
+ */
+fun Context.showToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, text, duration).show()
 }
