@@ -17,6 +17,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        concepts()
+        conceptExample1()
+        conceptExample2()
+        conceptExample3()
         contextExtensionExamples()
         dateExtensionExamples()
         genericExtensionExamples()
@@ -26,6 +30,79 @@ class MainActivity : AppCompatActivity() {
         stringExtensionExamples()
         anyExtensionExamples()
         uriExtensionExamples()
+        listExtensionExamples()
+    }
+
+    private fun concepts() {
+        /**
+         * How are extensions resolved?
+         * Statically.
+         *
+         * Extensions do not actually modify classes they extend.
+         * By defining an extension, you do not insert new members into a class, but merely make new functions
+         * callable with the dot-notation on variables of this type.
+         */
+    }
+
+    private fun conceptExample1() {
+        /**
+         * Now if we try to call the [someMethod] with [BaseClass] object but the actual reference we pass
+         * to it will be [DerivedClass] reference,
+         */
+        //actual call
+        printMessage(DerivedClass())  //This will print BaseClass.someMethod
+
+        /**
+         * Even though we passed [DerivedClass] reference, the method is being called from [BaseClass]
+         * Because the extension function being called depends only on the declared type of the parameter [base] in [printMessage] method,
+         * which is the [BaseClass] class.
+         *
+         * This is different from runtime polymorphism as here it is resolved statically but not at the runtime.
+         */
+    }
+
+    /**
+     * What if my class has the same method with the same signature that we are adding as an extension function?
+     *
+     * The compiler will call the method declared in the class but not the extension function.
+     */
+    private fun conceptExample2(): Unit {
+        /**
+         * <code>
+         *     class BaseClass{
+         *          fun someMethod(){
+         *              print("I am the actual someMethod")
+         *          }
+         *     }
+         *
+         *     fun BaseClass.someMethod(){
+         *          print("I am the extension function")
+         *     }
+         *
+         *     //to call this method
+         *     BaseClass().someMethod()
+         *
+         *     This will call the someMethod which s defined in BaseClass and will print "I am the actual someMethod"
+         */
+    }
+
+    /**
+     * Nullable Receiver
+     *
+     * The extensions can be defined with a nullable receiver type also.
+     * These extension function can be called on a nullable object variable.
+     */
+    private fun conceptExample3(): Unit {
+        /**
+         * fun Any?.toString(): String {
+         *      if (this == null) return "null"
+         *      // after the null check,
+         *      // 'this' is autocast to a non-null type,
+         *      // so the toString() below
+         *      // resolves to the member function of the Any class
+         *      return toString()
+         * }
+         */
     }
 
     private fun contextExtensionExamples() {
@@ -40,6 +117,9 @@ class MainActivity : AppCompatActivity() {
         //3
         vibrate(500) // 500 ms      // Should be called from Activity or other Context
         context.vibrate(500) // 500 ms      // Can be called from any place having "context" variable
+
+        //4
+        showToast("Hello")
     }
 
     private fun dateExtensionExamples() {
@@ -211,5 +291,15 @@ class MainActivity : AppCompatActivity() {
         //1
         val uri2 = "https://medium.com/@alex_nekrasov".asUri
         uri2?.open(this)
+    }
+
+    private fun listExtensionExamples() {
+        //1
+        var list = listOf<Int>(1, 2, 3, 4, 5)
+        var mid1 = list.midElement()
+
+        //2
+        var arrayList = arrayListOf(5, 4, 3, 2, 1)
+        var mid2 = arrayList.midElement()
     }
 }
