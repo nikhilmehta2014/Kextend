@@ -75,3 +75,29 @@ fun Date.toString(format: String): String {
     val dateFormatter = SimpleDateFormat(format, Locale.US)
     return dateFormatter.format(this)
 }
+
+/**
+ * Extension method to check whether the start date in [Date] format is before end date in [Date] format
+ */
+infix fun Date.isBefore(toDate: Date): Boolean {
+    var result = false
+    try {
+        result = this.before(toDate) || this == toDate
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+    return result
+}
+
+/**
+ * Extension method to check whether the end date in [Date] format is after start date in [Date] format
+ */
+infix fun Date.isAfter(fromDate: Date): Boolean {
+    var result = false
+    try {
+        result = this.after(fromDate) || this == fromDate
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+    return result
+}
