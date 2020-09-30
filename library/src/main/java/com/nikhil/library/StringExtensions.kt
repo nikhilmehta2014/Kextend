@@ -291,3 +291,77 @@ val String.asUri: Uri?
         null
     }
 
+/**
+ * Extension method to check if a String has all digits.
+ */
+fun String.hasAllDigits(): Boolean = this.matches("^\\d+$".toRegex())
+
+/**
+ * Extension method to check if a String is a phone number with or without (+/00) ISD code.
+ */
+fun String.isOnlyPhoneNumber(): Boolean {
+    var num = this.replace(" ", "")
+    num = num.replace("+", "")
+    num = num.replace("-", "")
+    return num.hasAllDigits()
+}
+
+val PATTERN_NUMBER_WITH_ISD: Pattern = Pattern.compile("(00([0-9]{3})|\\+([0-9]{3}))(\\d*)\$") // 00<ISD><Phone> or +<ISD><Phone>
+
+/**
+ * Extension method to check if a String(phone number) is an ISD phone number.
+ */
+fun String.isInternationalNumber(): Boolean = PATTERN_NUMBER_WITH_ISD.matcher(this).matches()
+
+/**
+ * Extension method to get ISD code (without 00 or +) from phone number.
+ */
+fun String.getISDCode(): String? {
+    val matcher = PATTERN_NUMBER_WITH_ISD.matcher(this)
+
+    if (matcher.matches()) {
+        // check if its 00<ISD_Code>
+        if (matcher.groupCount() >= 2) {
+            val group1 = matcher.group(2)
+            group1?.let {
+                if (it.isNotEmpty()) {
+                    return it
+                }
+            }
+        }
+        // check if its +<ISD_Code>
+        if (matcher.groupCount() >= 3) {
+            val group2 = matcher.group(3)
+            group2?.let {
+                if (it.isNotEmpty()) {
+                    return it
+                }
+            }
+        }
+    }
+    return null
+}
+
+/**
+ * Extension method to get formatted amount as double if it has some value
+ * after decimal otherwise as integer whole value from a String.
+ */
+fun String.getFormattedAmount(): String {
+    val amt = this.toDouble() ?: 0.0
+    return if (amt % 1 != 0.0) {
+        amt.toString()
+    } else {
+        amt.toInt().toString()
+    }
+}
+
+/**
+ * Get numerical value in [Double] format.
+ */
+fun String?.getDouble(): Double {
+    return if (this.isNullOrEmpty())
+        0.0
+    else
+        this.toDouble()
+}
+
