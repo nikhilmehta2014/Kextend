@@ -22,3 +22,7 @@ fun <T : User> List<T>.getUserNameList(): List<String> {
         it.name
     }
 }
+
+fun <T> T?.orDefault(default: T): T {
+    return this ?: default
+}

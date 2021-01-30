@@ -12,6 +12,10 @@ class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
     private val context = this
 
+    data class Destination(val name:String, val weight:Int = 0)
+    data class Seller(val destination: Destination? = null)
+    private var seller:Seller? = null
+
     @ExperimentalStdlibApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -150,6 +154,21 @@ class MainActivity : AppCompatActivity() {
         listOfUsers.add(Student(2, "Alex"))
         listOfUsers.add(Student(3, "Mohammed"))
         print(listOfUsers.getUserNameList())
+
+        /*Old way*/
+        //1
+//        val destination : Destination = seller?.destination ?: Destination(name = "Not found")
+
+        //2
+       /* val destination : Destination = if(seller?.destination != null){
+            seller?.destination
+        }else {
+            Destination(name = "Not found")
+        }*/
+
+        /*Add default value using extention*/
+        val destination : Destination = seller?.destination.orDefault(Destination(name = "Not found"))
+        val minWeight : Int = seller?.destination?.weight.orDefault(20)
     }
 
     private fun nullExtensionExamples(): Unit {
