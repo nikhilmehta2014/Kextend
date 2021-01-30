@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         anyExtensionExamples()
         uriExtensionExamples()
         listExtensionExamples()
+        liveDataExtensionExamples()
     }
 
     private fun concepts() {
@@ -329,5 +330,30 @@ class MainActivity : AppCompatActivity() {
         //2
         var arrayList = arrayListOf(5, 4, 3, 2, 1)
         var mid2 = arrayList.midElement()
+    }
+
+    private fun liveDataExtensionExamples(){
+        /*Old way to observe live data*/
+//        viewModel.newProfilePicture.observe(this, Observer { string ->
+            //Do something here
+//        })
+
+        //1
+        /*Observe live data with extension*/
+//        observe(viewModel.newProfilePicture){ string ->
+            //Do something here
+//        }
+
+        //2
+        /*Observe live data with extention + dedicated function
+        It will make code cleaner when you have long code to handle variable of live data
+        */
+//        observe(viewModel.newProfilePicture, ::showProfilePicture)
+
+        //...
+
+//        private fun showProfilePicture(url: String){
+            //Do something here
+//        }
     }
 }
