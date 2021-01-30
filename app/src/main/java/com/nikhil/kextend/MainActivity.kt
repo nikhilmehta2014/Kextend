@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         uriExtensionExamples()
         listExtensionExamples()
         liveDataExtensionExamples()
+        viewExtensionExamples()
     }
 
     private fun concepts() {
@@ -354,6 +355,18 @@ class MainActivity : AppCompatActivity() {
 
 //        private fun showProfilePicture(url: String){
             //Do something here
+//        }
+    }
+
+    private fun viewExtensionExamples() {
+        /*Calling onThrottledClick with default debounce time (500 ms) */
+//        btn_order.onThrottledClick {
+            // Doing order here
+//        }
+
+        /*Calling onThrottledClick with your custom debounce time */
+//        btn_order.onThrottledClick(2000L) {
+            // Doing order here
 //        }
     }
 }
