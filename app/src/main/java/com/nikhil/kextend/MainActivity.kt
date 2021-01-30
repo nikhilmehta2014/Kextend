@@ -159,6 +159,15 @@ class MainActivity : AppCompatActivity() {
         } else {
             println("Null field")
         }
+
+        /**
+         * Notice 2 usages:
+         * 1. [isNull]
+         * 2. [isNull().not()]
+         */
+        if(name.isNull() || name.length.isNull().not()){
+            println("$name is not null and $name length is not null")
+        }
     }
 
     private fun parseExtensionExamples(): Unit {
