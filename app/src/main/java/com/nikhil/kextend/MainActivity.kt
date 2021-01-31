@@ -169,8 +169,8 @@ class MainActivity : AppCompatActivity() {
         }*/
 
         /*Add default value using extention*/
-//        val destination : Destination = seller?.destination.orDefault(Destination(name = "Not found"))
-//        val minWeight : Int = seller?.destination?.weight.orDefault(20)
+        val destination : Destination = seller?.destination.orDefault(Destination(name = "Not found"))
+        val minWeight : Int = seller?.destination?.weight.orDefault(20)
     }
 
     private fun nullExtensionExamples(): Unit {
