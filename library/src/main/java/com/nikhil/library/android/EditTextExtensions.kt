@@ -1,4 +1,4 @@
-package com.nikhil.library
+package com.nikhil.library.android
 
 import android.os.Bundle
 import android.widget.EditText
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doBeforeTextChanged
 import androidx.core.widget.doOnTextChanged
+import com.nikhil.library.R
 
 class EditTextExtensions : AppCompatActivity() {
 
