@@ -8,7 +8,7 @@ import androidx.fragment.app.commit
 class FragmentExxtensions : Fragment() {
 
     // We can easily access the ViewModel in our Fragment
-    val vm: ExampleViewmodel by activityViewModels()
+    val vm: ExampleViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
