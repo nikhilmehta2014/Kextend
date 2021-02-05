@@ -1,5 +1,9 @@
 package com.nikhil.library
 
+import android.app.Activity
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
+
 /**
  * When we create an extension that is taking a generic type we can apply it for every class extends or implements that generic.
  *
@@ -25,4 +29,32 @@ fun <T : User> List<T>.getUserNameList(): List<String> {
 
 fun <T> T?.orDefault(default: T): T {
     return this ?: default
+}
+
+
+/**
+ * We often require to refresh a list by removing the existing items and updating them with the new ones or
+ * sometimes we need to check the permission status in our app to access some features.
+ *
+ * Note: The Generic type is specified in the below List extensions to avoid making different extensions for different Object types.
+ */
+fun <T : Any> ArrayList<T>.refreshList(items: List<T>): ArrayList<T> {
+    this.clear()
+    this.addAll(items)
+    return this
+}
+
+fun <T : Any> ArrayList<T>.addOnlyNewItems(items: List<T>): ArrayList<T> {
+    items.forEach {
+        if (!this.contains(it))
+            this.add(it)
+    }
+    return this
+}
+
+fun Activity.hasPermission(permission: String): Boolean {
+    return ActivityCompat.checkSelfPermission(
+        this,
+        permission
+    ) == PackageManager.PERMISSION_GRANTED
 }
