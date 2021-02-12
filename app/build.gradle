@@ -32,7 +32,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
 
     //Kextend
-    implementation 'com.github.nikhilmehta2014:Kextend:v1.0.3.1'
+    implementation 'com.github.nikhilmehta2014:Kextend:v1.0.3.2'
 
     // FinestWebView
     implementation 'com.thefinestartist:finestwebview:1.2.7'

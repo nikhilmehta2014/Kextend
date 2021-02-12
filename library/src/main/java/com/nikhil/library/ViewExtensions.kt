@@ -91,3 +91,8 @@ fun Context.showSmallLengthToast(text: String) {
 fun Context.showLongLengthToast(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_LONG).show()
 }
+
+/**
+ * Extension method to provide simpler access to {@link View#getResources()#getString(int)}.
+ */
+fun View.getString(stringResId: Int): String = resources.getString(stringResId)
