@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         listExtensionExamples()
         liveDataExtensionExamples()
         viewExtensionExamples()
+        imageExtensionExamples()
     }
 
     private fun concepts() {
@@ -368,5 +369,17 @@ class MainActivity : AppCompatActivity() {
 //        btn_order.onThrottledClick(2000L) {
             // Doing order here
 //        }
+    }
+
+    private fun imageExtensionExamples() {
+        /* Old way Load image with glide */
+        /*Glide.with(activity)
+            .load(url)
+            .placeholder(R.drawable.placeholder)
+            .into(img_profile_picture)*/
+
+        /* Load image with extension */
+        /*img_profile_picture.loadImage(url)
+        img_profile_picture.loadImage(url, R.drawable.custom_placeholder)*/
     }
 }
